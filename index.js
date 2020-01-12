@@ -46,10 +46,19 @@ async function scrapeJobDescription(listings, page) {
   for (var i = 0; i < listings.length; i++) {
     await page.goto(listings[i].url);
     const html = await page.content();
-    console.log(html);
+    // console.log(html);
+    // 1 second wait
+    await sleep(1000);
   }
 }
 
+// Sleep function to make requests with specific request
+// Too many request can get the Ip blocked
+async function sleep(millisecond) {
+  return new Promise(resolve => setTimeout(resolve, millisecond));
+}
+
+// Main function
 async function main() {
   // Headless to see the Puppetter in Chrome test in action
   const browser = await puppeteer.launch({ headless: false });
