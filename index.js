@@ -30,7 +30,13 @@ async function main() {
       const url = $(titleElement).attr("href");
       // javascript date object
       const datePosted = new Date($(timeElement).text());
-      const hood = $(hoodElement).text();
+
+      // Cleaning up data by removing  emepty spaces before and after also removing brackets
+      const hood = $(hoodElement)
+        .text()
+        .trim()
+        .replace("(", "")
+        .replace(")", "");
 
       return { title, url, datePosted, hood };
       // get function is always required when map is used for javascript.
