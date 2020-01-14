@@ -1,5 +1,15 @@
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
+const mongoose = require("mongoose");
+
+// Connect to MongoDb
+async function connectToMongoDb() {
+  const uri =
+    "mongodb+srv://craigslistuser:WebScraping@cluster0-s2loh.mongodb.net/test?retryWrites=true&w=majority";
+
+  await mongoose.connect(uri);
+  console.log("connected to mongodb");
+}
 
 async function scrapeListings(page) {
   // Website link
@@ -69,6 +79,8 @@ async function sleep(millisecond) {
 
 // Main function
 async function main() {
+  // Connect to MongoDb
+  await connectToMongoDb();
   // Headless to see the Puppetter in Chrome test in action
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
