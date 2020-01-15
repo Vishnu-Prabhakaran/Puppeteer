@@ -1,6 +1,8 @@
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 const mongoose = require("mongoose");
+// Listings
+const Listing = require("./model/listings");
 
 // Connect to MongoDb
 async function connectToMongoDb() {
@@ -12,7 +14,7 @@ async function connectToMongoDb() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       socketTimeoutMS: 100,
-      keepAlive: true,
+      keepAlive: true
     })
     .catch(err => console.log(err.reason));
 
@@ -74,6 +76,10 @@ async function scrapeJobDescription(listings, page) {
     listings[i].compensation = compensation;
     //console.log(listings[i].jobDescription);
     console.log(listings[i].compensation);
+
+    const listingModel = new Listing(listings[i]);
+    await listingModel.save();
+
     // 1 second wait
     await sleep(1000);
   }
