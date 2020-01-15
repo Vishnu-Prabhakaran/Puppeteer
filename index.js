@@ -7,7 +7,15 @@ async function connectToMongoDb() {
   const uri =
     "mongodb+srv://craigslistuser:WebScraping@cluster0-s2loh.mongodb.net/test?retryWrites=true&w=majority";
 
-  await mongoose.connect(uri);
+  mongoose
+    .connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      socketTimeoutMS: 100,
+      keepAlive: true,
+    })
+    .catch(err => console.log(err.reason));
+
   console.log("connected to mongodb");
 }
 
