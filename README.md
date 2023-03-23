@@ -1,2 +1,2 @@
 # Puppeteer
-Web Scaping with puppeteer
+Web Scraping with puppeteer
